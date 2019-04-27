@@ -1,4 +1,5 @@
-const map = require('unist-util-map');
+import 'babel-polyfill';
+import map from 'unist-util-map';
 
 const LINK_REGEX = /^\[\[(.+?)\]\]/;
 
@@ -99,22 +100,5 @@ function wikiLinkPlugin(opts = {}) {
         }
     }
 }
-
-const unified = require('unified')
-const markdown = require('remark-parse')
-const visit = require('unist-util-visit');
-const remark2rehype = require('remark-rehype');
-const html = require('rehype-stringify');
-const remark2markdown = require('remark-stringify');
-
-let processor = unified()
-    .use(markdown, { gfm: true, footnotes: true, yaml: true })
-    // .use(remark2markdown)
-    .use(wikiLinkPlugin, { permalinks: ['wiki_link', 'real_page'] })
-    .use(remark2rehype)
-    .use(html)
-
-
-console.log(processor.processSync('Hey here is a [[Wiki Link]]. Here is [[Another one]]. Here is an [[real page:aliased page]]. Here is a [normal link](https://google.com).'))
 
 module.exports = wikiLinkPlugin

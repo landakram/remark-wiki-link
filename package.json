@@ -1,7 +1,7 @@
 {
   "name": "remark-wiki-link",
   "description": "Parse and render wiki-style links",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "remark",
     "remark-plugin",
@@ -16,20 +16,21 @@
     "url": "https://markhudnall.com"
   },
   "scripts": {
-    "test": "npm run babel && mocha --compilers js:babel-core/register test/index_test.js",
+    "test": "npm run babel && mocha --require @babel/register test/index_test.js",
     "babel": "babel src --out-dir lib",
     "prepublish": "npm run babel"
   },
   "main": "lib/index.js",
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "unist-util-map": "^1.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-preset-env": "^1.6.0",
-    "mocha": "^3.4.2",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "mocha": "^6.1.4",
     "rehype-stringify": "^3.0.0",
     "remark-parse": "^3.0.1",
     "remark-rehype": "^2.0.1",
