@@ -1,7 +1,7 @@
 {
   "name": "remark-wiki-link",
   "description": "Parse and render wiki-style links",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "remark",
     "remark-plugin",
@@ -22,12 +22,13 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/runtime": "^7.4.4",
     "unist-util-map": "^1.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "mocha": "^6.1.4",
