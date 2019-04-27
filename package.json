@@ -22,7 +22,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "unist-util-map": "^1.0.3"
   },
   "devDependencies": {
