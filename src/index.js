@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import map from 'unist-util-map';
 
 const LINK_REGEX = /^\[\[(.+?)\]\]/;
@@ -17,7 +16,7 @@ function wikiLinkPlugin(opts = {}) {
     let hrefTemplate = opts.hrefTemplate || defaultHrefTemplate
 
     function isAlias(pageTitle) {
-        return pageTitle.includes(':')
+        return pageTitle.indexOf(':') !== -1;
     }
 
     function parseAliasLink(pageTitle) {
@@ -43,7 +42,7 @@ function wikiLinkPlugin(opts = {}) {
             const { name, displayName } = parsePageTitle(pageName)
 
             let pagePermalinks = pageResolver(name);
-            let permalink = pagePermalinks.find(p => permalinks.includes(p));
+            let permalink = pagePermalinks.find(p => permalinks.indexOf(p) != -1);
             let exists = permalink != undefined;
 
             if (!exists) {
