@@ -82,6 +82,7 @@ When rendered to HTML, we get:
 
 * `options.wikiLinkClassName`: a class name that is attached to any rendered wiki links. Defaults to `"internal"`.
 * `options.newClassName`: a class name that is attached to any rendered wiki links that do not exist. Defaults to `"new"`.
+* `options.aliasDivider`: a string for `aliased pages`.
 
 #### Aliasing pages
 
