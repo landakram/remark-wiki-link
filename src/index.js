@@ -93,7 +93,7 @@ function wikiLinkPlugin(opts = {}) {
     if (visitors) {
       visitors.wikiLink = function (node) {
         if (node.data.alias != node.value) {
-          return `[[${node.value}:${node.data.alias}]]`
+          return `[[${node.value}${aliasDivider}${node.data.alias}]]`
         }
         return `[[${node.value}]]`
       }
