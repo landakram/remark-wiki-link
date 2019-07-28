@@ -70,6 +70,29 @@ describe("remark-wiki-link", () => {
     })
   });
 
+  it("handles wiki alias links with custom divider", () => {
+    let processor = unified()
+      .use(markdown)
+      .use(wikiLinkPlugin, {
+        permalinks: [],
+        aliasDivider: "|"
+      });
+
+    var ast = processor.parse("[[Real Page|Page Alias]]");
+    ast = processor.runSync(ast);
+
+    visit(ast, "wikiLink", node => {
+      assert.equal(node.data.exists, false);
+      assert.equal(node.data.permalink, "real_page");
+      assert.equal(node.data.hName, "a");
+      assert.equal(node.data.alias, "Page Alias");
+      assert.equal(node.value, "Real Page");
+      assert.equal(node.data.hProperties.className, "internal new");
+      assert.equal(node.data.hProperties.href, "#/page/real_page");
+      assert.equal(node.data.hChildren[0].value, "Page Alias");
+    });
+  });
+
   it("stringifies wiki links", () => {
     let processor = unified()
         .use(markdown, { gfm: true, footnotes: true, yaml: true })

@@ -14,13 +14,14 @@ function wikiLinkPlugin(opts = {}) {
   let wikiLinkClassName = opts.wikiLinkClassName || 'internal';
   let defaultHrefTemplate = (permalink) => `#/page/${permalink}`
   let hrefTemplate = opts.hrefTemplate || defaultHrefTemplate
+  let aliasDivider = opts.aliasDivider || ":";
 
   function isAlias(pageTitle) {
-    return pageTitle.indexOf(':') !== -1;
+    return pageTitle.indexOf(aliasDivider) !== -1;
   }
 
   function parseAliasLink(pageTitle) {
-    var [name, displayName] = pageTitle.split(':')
+    var [name, displayName] = pageTitle.split(aliasDivider);
     return { name, displayName }
   }
 
@@ -92,7 +93,7 @@ function wikiLinkPlugin(opts = {}) {
     if (visitors) {
       visitors.wikiLink = function (node) {
         if (node.data.alias != node.value) {
-          return `[[${node.value}:${node.data.alias}]]`
+          return `[[${node.value}${aliasDivider}${node.data.alias}]]`
         }
         return `[[${node.value}]]`
       }
