@@ -4,8 +4,7 @@ const markdown = require('remark-parse')
 const visit = require('unist-util-visit');
 const remark2markdown = require('remark-stringify');
 
-const wikiLinkPlugin = require('../lib/index.js');
-
+import { wikiLinkPlugin } from '..';
 
 describe("remark-wiki-link", () => {
   it("parses a wiki link that has a matching permalink", () => {
@@ -17,6 +16,8 @@ describe("remark-wiki-link", () => {
 
     var ast = processor.parse('[[Wiki Link]]');
     ast = processor.runSync(ast);
+
+    console.log(ast.children[0]);
 
     visit(ast, 'wikiLink', (node) => {
       assert.equal(node.data.exists, true)
