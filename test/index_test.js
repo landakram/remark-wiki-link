@@ -1,23 +1,21 @@
-const assert = require('assert');
+import { wikiLinkPlugin } from '..'
+
+const assert = require('assert')
 const unified = require('unified')
 const markdown = require('remark-parse')
-const visit = require('unist-util-visit');
-const remark2markdown = require('remark-stringify');
+const visit = require('unist-util-visit')
+const remark2markdown = require('remark-stringify')
 
-import { wikiLinkPlugin } from '..';
+describe('remark-wiki-link', () => {
+  it('parses a wiki link that has a matching permalink', () => {
+    const processor = unified()
+      .use(markdown)
+      .use(wikiLinkPlugin, {
+        permalinks: ['wiki_link']
+      })
 
-describe("remark-wiki-link", () => {
-  it("parses a wiki link that has a matching permalink", () => {
-    let processor = unified()
-        .use(markdown)
-        .use(wikiLinkPlugin, {
-          permalinks: ['wiki_link']
-        });
-
-    var ast = processor.parse('[[Wiki Link]]');
-    ast = processor.runSync(ast);
-
-    console.log(ast.children[0]);
+    var ast = processor.parse('[[Wiki Link]]')
+    ast = processor.runSync(ast)
 
     visit(ast, 'wikiLink', (node) => {
       assert.equal(node.data.exists, true)
@@ -29,15 +27,15 @@ describe("remark-wiki-link", () => {
     })
   })
 
-  it("parses a wiki link that has no matching permalink", () => {
-    let processor = unified()
-        .use(markdown)
-        .use(wikiLinkPlugin, {
-          permalinks: []
-        });
+  it('parses a wiki link that has no matching permalink', () => {
+    const processor = unified()
+      .use(markdown)
+      .use(wikiLinkPlugin, {
+        permalinks: []
+      })
 
-    var ast = processor.parse('[[New Page]]');
-    ast = processor.runSync(ast);
+    var ast = processor.parse('[[New Page]]')
+    ast = processor.runSync(ast)
 
     visit(ast, 'wikiLink', (node) => {
       assert.equal(node.data.exists, false)
@@ -47,17 +45,17 @@ describe("remark-wiki-link", () => {
       assert.equal(node.data.hProperties.href, '#/page/new_page')
       assert.equal(node.data.hChildren[0].value, 'New Page')
     })
-  });
+  })
 
-  it("handles wiki links with aliases", () => {
-    let processor = unified()
-        .use(markdown)
-        .use(wikiLinkPlugin, {
-          permalinks: []
-        });
+  it('handles wiki links with aliases', () => {
+    const processor = unified()
+      .use(markdown)
+      .use(wikiLinkPlugin, {
+        permalinks: []
+      })
 
-    var ast = processor.parse('[[Real Page:Page Alias]]');
-    ast = processor.runSync(ast);
+    var ast = processor.parse('[[Real Page:Page Alias]]')
+    ast = processor.runSync(ast)
 
     visit(ast, 'wikiLink', (node) => {
       assert.equal(node.data.exists, false)
@@ -69,116 +67,116 @@ describe("remark-wiki-link", () => {
       assert.equal(node.data.hProperties.href, '#/page/real_page')
       assert.equal(node.data.hChildren[0].value, 'Page Alias')
     })
-  });
+  })
 
-  it("handles wiki alias links with custom divider", () => {
-    let processor = unified()
+  it('handles wiki alias links with custom divider', () => {
+    const processor = unified()
       .use(markdown)
       .use(wikiLinkPlugin, {
         permalinks: [],
-        aliasDivider: "|"
-      });
+        aliasDivider: '|'
+      })
 
-    var ast = processor.parse("[[Real Page|Page Alias]]");
-    ast = processor.runSync(ast);
+    var ast = processor.parse('[[Real Page|Page Alias]]')
+    ast = processor.runSync(ast)
 
-    visit(ast, "wikiLink", node => {
-      assert.equal(node.data.exists, false);
-      assert.equal(node.data.permalink, "real_page");
-      assert.equal(node.data.hName, "a");
-      assert.equal(node.data.alias, "Page Alias");
-      assert.equal(node.value, "Real Page");
-      assert.equal(node.data.hProperties.className, "internal new");
-      assert.equal(node.data.hProperties.href, "#/page/real_page");
-      assert.equal(node.data.hChildren[0].value, "Page Alias");
-    });
-  });
+    visit(ast, 'wikiLink', node => {
+      assert.equal(node.data.exists, false)
+      assert.equal(node.data.permalink, 'real_page')
+      assert.equal(node.data.hName, 'a')
+      assert.equal(node.data.alias, 'Page Alias')
+      assert.equal(node.value, 'Real Page')
+      assert.equal(node.data.hProperties.className, 'internal new')
+      assert.equal(node.data.hProperties.href, '#/page/real_page')
+      assert.equal(node.data.hChildren[0].value, 'Page Alias')
+    })
+  })
 
-  it("stringifies wiki links", () => {
-    let processor = unified()
-        .use(markdown, { gfm: true, footnotes: true, yaml: true })
-        .use(remark2markdown)
-        .use(wikiLinkPlugin, { permalinks: ['wiki_link'] })
+  it('stringifies wiki links', () => {
+    const processor = unified()
+      .use(markdown, { gfm: true, footnotes: true, yaml: true })
+      .use(remark2markdown)
+      .use(wikiLinkPlugin, { permalinks: ['wiki_link'] })
 
-    let stringified = processor.processSync('[[Wiki Link]]').contents.trim();
-    assert.equal(stringified, '[[Wiki Link]]');
-  });
+    const stringified = processor.processSync('[[Wiki Link]]').contents.trim()
+    assert.equal(stringified, '[[Wiki Link]]')
+  })
 
-  it("stringifies aliased wiki links", () => {
-    let processor = unified()
-        .use(markdown, { gfm: true, footnotes: true, yaml: true })
-        .use(remark2markdown)
-        .use(wikiLinkPlugin)
+  it('stringifies aliased wiki links', () => {
+    const processor = unified()
+      .use(markdown, { gfm: true, footnotes: true, yaml: true })
+      .use(remark2markdown)
+      .use(wikiLinkPlugin)
 
-    let stringified = processor.processSync('[[Real Page:Page Alias]]').contents.trim();
-    assert.equal(stringified, '[[Real Page:Page Alias]]');
-  });
+    const stringified = processor.processSync('[[Real Page:Page Alias]]').contents.trim()
+    assert.equal(stringified, '[[Real Page:Page Alias]]')
+  })
 
-  context("configuration options", () => {
-    it("uses pageResolver", () => {
-      let identity = (name) => [name];
+  context('configuration options', () => {
+    it('uses pageResolver', () => {
+      const identity = (name) => [name]
 
-      let processor = unified()
-          .use(markdown)
-          .use(wikiLinkPlugin, {
-            pageResolver: identity,
-            permalinks: ["A Page"]
-          });
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          pageResolver: identity,
+          permalinks: ['A Page']
+        })
 
-      var ast = processor.parse('[[A Page]]');
-      ast = processor.runSync(ast);
+      var ast = processor.parse('[[A Page]]')
+      ast = processor.runSync(ast)
 
       visit(ast, 'wikiLink', (node) => {
         assert.equal(node.data.exists, true)
         assert.equal(node.data.permalink, 'A Page')
         assert.equal(node.data.hProperties.href, '#/page/A Page')
       })
-    });
+    })
 
-    it("uses newClassName", () => {
-      let processor = unified()
-          .use(markdown)
-          .use(wikiLinkPlugin, {
-            newClassName: "new_page"
-          });
+    it('uses newClassName', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          newClassName: 'new_page'
+        })
 
-      var ast = processor.parse('[[A Page]]');
-      ast = processor.runSync(ast);
+      var ast = processor.parse('[[A Page]]')
+      ast = processor.runSync(ast)
 
       visit(ast, 'wikiLink', (node) => {
-        assert.equal(node.data.hProperties.className, "internal new_page")
+        assert.equal(node.data.hProperties.className, 'internal new_page')
       })
-    });
+    })
 
-    it("uses hrefTemplate", () => {
-      let processor = unified()
-          .use(markdown)
-          .use(wikiLinkPlugin, {
-            hrefTemplate: (permalink) => permalink
-          });
+    it('uses hrefTemplate', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          hrefTemplate: (permalink) => permalink
+        })
 
-      var ast = processor.parse('[[A Page]]');
-      ast = processor.runSync(ast);
+      var ast = processor.parse('[[A Page]]')
+      ast = processor.runSync(ast)
 
       visit(ast, 'wikiLink', (node) => {
         assert.equal(node.data.hProperties.href, 'a_page')
       })
-    });
+    })
 
-    it("uses wikiLinkClassName", () => {
-      let processor = unified()
-          .use(markdown)
-          .use(wikiLinkPlugin, {
-            wikiLinkClassName: 'wiki_link',
-            permalinks: ['a_page']
-          });
+    it('uses wikiLinkClassName', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          wikiLinkClassName: 'wiki_link',
+          permalinks: ['a_page']
+        })
 
-      var ast = processor.parse('[[A Page]]');
-      ast = processor.runSync(ast);
+      var ast = processor.parse('[[A Page]]')
+      ast = processor.runSync(ast)
 
       visit(ast, 'wikiLink', (node) => {
-        assert.equal(node.data.hProperties.className, "wiki_link")
+        assert.equal(node.data.hProperties.className, 'wiki_link')
       })
-    });
-  });
-});
+    })
+  })
+})

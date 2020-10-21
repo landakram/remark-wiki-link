@@ -3,10 +3,10 @@ import { fromMarkdown, toMarkdown } from 'mdast-util-wiki-link'
 
 let warningIssued
 
-function wikiLinkPlugin(opts = {}) {
-  let data = this.data()
+function wikiLinkPlugin (opts = {}) {
+  const data = this.data()
 
-  function add(field, value) {
+  function add (field, value) {
     if (data[field]) data[field].push(value)
     else data[field] = [value]
   }
