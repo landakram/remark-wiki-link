@@ -21,7 +21,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src/ test/",
-    "prepare": "npm run babel",
+    "prepare": "npm run build",
     "pretest": "npm run build",
     "test": "npm run lint && mocha --require @babel/register test/index_test.js"
   },
