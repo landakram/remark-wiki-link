@@ -1,11 +1,15 @@
 # remark-wiki-link
 [![npm version](https://badge.fury.io/js/remark-wiki-link.svg)](https://badge.fury.io/js/remark-wiki-link) [![Build Status](https://travis-ci.org/landakram/remark-wiki-link.svg?branch=master)](https://travis-ci.org/landakram/remark-wiki-link)
 
+⚠️ This plugin is affected by the new parser in remark ([`micromark`](https://github.com/micromark/micromark), see [`remarkjs/remark#536`](https://github.com/remarkjs/remark/pull/536)). **For remark 12, use v0.0.x of this package**. **For remark 13+, use v1.0.0 or above.**
+
 This [remark](https://github.com/wooorm/remark) plugin parses and renders `[[Wiki Links]]`.
 
 * Parse wiki-style links and render them as anchors
 * Differentiate between "new" and "existing" wiki links by giving the parser a list of existing permalinks
 * Parse aliased wiki links i.e `[[Real Page:Page Alias]]`
+
+Looking for lower level packages? Check out [mdast-util-wiki-link](https://github.com/landakram/mdast-util-wiki-link/) for working with ASTs and [micromark-extension-wiki-link](https://github.com/landakram/micromark-extension-wiki-link) for working with tokens.
 
 ## Usage
 
