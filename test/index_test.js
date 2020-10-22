@@ -1,4 +1,4 @@
-import { wikiLinkPlugin } from '..'
+const { wikiLinkPlugin } = require('..')
 
 const assert = require('assert')
 const unified = require('unified')

@@ -16,7 +16,7 @@ Looking for lower level packages? Check out [mdast-util-wiki-link](https://githu
 ```javascript
 const unified = require('unified')
 const markdown = require('remark-parse')
-const wikiLinkPlugin = require('remark-wiki-link');
+const { wikiLinkPlugin } = require('remark-wiki-link');
 
 let processor = unified()
     .use(markdown, { gfm: true })
