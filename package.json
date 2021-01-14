@@ -1,7 +1,7 @@
 {
   "name": "remark-wiki-link",
   "description": "Parse and render wiki-style links",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "remark",
     "remark-plugin",
@@ -28,16 +28,14 @@
   "dependencies": {
     "@babel/runtime": "^7.4.4",
     "mdast-util-wiki-link": "0.0.1",
-    "micromark-extension-wiki-link": "^0.0.2"
+    "micromark-extension-wiki-link": "^0.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
-    "mocha": "^6.1.4",
-    "rollup": "^2.32.0",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^15.1.0",
     "eslint": "^7.11.0",
@@ -46,10 +44,12 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^6.2.3",
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.0.0",
     "remark-stringify": "^9.0.0",
+    "rollup": "^2.32.0",
     "unified": "^9.2.0",
     "unist-util-visit": "^2.0.3"
   }
