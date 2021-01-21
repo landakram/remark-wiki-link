@@ -4,6 +4,7 @@ const assert = require('assert')
 const unified = require('unified')
 const markdown = require('remark-parse')
 const visit = require('unist-util-visit')
+const select = require('unist-util-select')
 const remark2markdown = require('remark-stringify')
 
 describe('remark-wiki-link', () => {
@@ -177,6 +178,74 @@ describe('remark-wiki-link', () => {
       visit(ast, 'wikiLink', (node) => {
         assert.equal(node.data.hProperties.className, 'wiki_link')
       })
+    })
+  })
+
+  context('open wiki links', () => {
+    it('handles open wiki links', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          permalinks: []
+        })
+
+      var ast = processor.parse('t[[\nt')
+      ast = processor.runSync(ast)
+
+      assert.ok(!select.select('wikiLink', ast))
+    })
+
+    it('handles open wiki links at end of file', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          permalinks: []
+        })
+
+      var ast = processor.parse('t [[')
+      ast = processor.runSync(ast)
+
+      assert.ok(!select.select('wikiLink', ast))
+    })
+
+    it('handles open wiki links with partial data', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          permalinks: []
+        })
+
+      var ast = processor.parse('t [[tt\nt')
+      ast = processor.runSync(ast)
+
+      assert.ok(!select.select('wikiLink', ast))
+    })
+
+    it('handles open wiki links with partial alias divider', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          aliasDivider: '::',
+          permalinks: []
+        })
+
+      var ast = processor.parse('[[t::\n')
+      ast = processor.runSync(ast)
+
+      assert.ok(!select.select('wikiLink', ast))
+    })
+
+    it('handles open wiki links with partial alias', () => {
+      const processor = unified()
+        .use(markdown)
+        .use(wikiLinkPlugin, {
+          permalinks: []
+        })
+
+      var ast = processor.parse('[[t:\n')
+      ast = processor.runSync(ast)
+
+      assert.ok(!select.select('wikiLink', ast))
     })
   })
 })
