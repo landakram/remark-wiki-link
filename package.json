@@ -1,7 +1,7 @@
 {
   "name": "remark-wiki-link",
   "description": "Parse and render wiki-style links",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "remark",
     "remark-plugin",
@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "mdast-util-wiki-link": "0.0.1",
-    "micromark-extension-wiki-link": "0.0.4"
+    "mdast-util-wiki-link": "^0.0.2",
+    "micromark-extension-wiki-link": "^0.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -49,7 +49,7 @@
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.0.0",
-    "remark-stringify": "^9.0.0",
+    "remark-stringify": "^9.0.1",
     "rollup": "^2.32.0",
     "unified": "^9.2.0",
     "unist-util-select": "^3.0.4",
