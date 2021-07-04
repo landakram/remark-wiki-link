@@ -29,4 +29,5 @@ function wikiLinkPlugin (opts = {}) {
   add('toMarkdownExtensions', toMarkdown(opts))
 }
 
-export { wikiLinkPlugin }
+wikiLinkPlugin.wikiLinkPlugin = wikiLinkPlugin
+export default wikiLinkPlugin

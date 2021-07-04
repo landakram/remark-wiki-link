@@ -1,4 +1,5 @@
-const { wikiLinkPlugin } = require('..')
+const wikiLinkPlugin = require('..')
+const { wikiLinkPlugin: namedWikiLinkPlugin } = require('..')
 
 const assert = require('assert')
 const unified = require('unified')
@@ -247,5 +248,9 @@ describe('remark-wiki-link', () => {
 
       assert.ok(!select.select('wikiLink', ast))
     })
+  })
+
+  it('exports the plugin with named exports', () => {
+    assert.equal(wikiLinkPlugin, namedWikiLinkPlugin)
   })
 })
