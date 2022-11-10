@@ -45,7 +45,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "mdast-util-from-markdown": "^0.8.4",
-    "mocha": "^6.2.3",
+    "mocha": "^10.1.0",
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.0.0",
