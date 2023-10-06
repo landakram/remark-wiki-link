@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "mdast-util-wiki-link": "^0.0.2",
+    "mdast-util-wiki-link": "^0.1.1",
     "micromark-extension-wiki-link": "^0.0.4"
   },
   "devDependencies": {
