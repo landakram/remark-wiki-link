@@ -1,12 +1,12 @@
 import { syntax } from 'micromark-extension-wiki-link'
 import { fromMarkdown, toMarkdown } from 'mdast-util-wiki-link'
 
-let warningIssued
+let warningIssued: boolean = false
 
-function wikiLinkPlugin (opts = {}) {
+function wikiLinkPlugin (this: any, opts = {}) {
   const data = this.data()
 
-  function add (field, value) {
+  function add (field: any, value: any) {
     if (data[field]) data[field].push(value)
     else data[field] = [value]
   }
@@ -29,5 +29,5 @@ function wikiLinkPlugin (opts = {}) {
   add('toMarkdownExtensions', toMarkdown(opts))
 }
 
-wikiLinkPlugin.wikiLinkPlugin = wikiLinkPlugin
+export { wikiLinkPlugin }
 export default wikiLinkPlugin
