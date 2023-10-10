@@ -1,7 +1,7 @@
 {
   "name": "remark-wiki-link",
   "description": "Parse and render wiki-style links",
-  "version": "2.0.1-beta.0",
+  "version": "2.0.1-beta.1",
   "keywords": [
     "remark",
     "remark-plugin",
